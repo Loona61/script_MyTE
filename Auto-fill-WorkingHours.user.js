@@ -1,8 +1,8 @@
 // ==UserScript==
-// @name         Auto-fill Work Schedule
+// @name         Auto-fill Working Hours
 // @namespace    http://tampermonkey.net/
 // @version      1.0
-// @description  Auto-fill work schedule on Accenture
+// @description  Auto-fill Working Hours on Accenture
 // @author       Les sorciers du script
 // @match        *://myte.accenture.com/*
 // @grant        none
@@ -15,8 +15,14 @@
 
     // Ajouter un bouton dans la div spécifiée
     function addButton() {
+        if (document.querySelector('#autoFillButton')) {
+            // Ne rien faire si le bouton existe déjà
+            return;
+        }
+
         const button = document.createElement('button');
         button.textContent = 'AutoFill';
+        button.id = 'autoFillButton';
         button.style.backgroundColor = '#3863a5';
         button.style.marginRight = '10px';
         button.style.color = 'white';
@@ -93,9 +99,9 @@
     // Fonction pour remplir les champs en fonction du work schedule
     function fillFieldsByWorkSchedule(workSchedule, hoursSelect, minutesSelect, meridianSelect, breakSelect) {
         // Normaliser la valeur de workSchedule en remplaçant la virgule par un point
-		const normalizedWorkSchedule = workSchedule.replace(',', '.')
+        const normalizedWorkSchedule = workSchedule.replace(',', '.');
 
-        switch (workSchedule) {
+        switch (normalizedWorkSchedule) {
             case '7.5':
                 selectOptionByValue(hoursSelect, '5');
                 selectOptionByValue(minutesSelect, '30');
@@ -193,6 +199,17 @@
             setTimeout(() => waitForElement(selector, callback), 500);
         }
     }
+
+    // Observer les changements dans le DOM pour réappliquer le bouton si nécessaire
+    const observer = new MutationObserver(function() {
+        waitForElement('div[id="timeCategoryTaskCell-7"] myte-time-category-task-renderer div', addButton);
+    });
+
+    // Commencer à observer le document entier pour les changements de l'arbre DOM
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
     // Attendre que la page soit complètement chargée avant d'ajouter le bouton
     window.addEventListener('load', function() {
