@@ -149,6 +149,11 @@
 
         // Remplir les champs dans la popup
         document.querySelectorAll('myte-punch-clock-popup div[role="row"]').forEach(function(rowDiv) {
+            if (rowDiv.querySelector('.special-cell')) {
+                console.log("Jour férié ou week-end détecté, saut de cette ligne.");
+                return; // Ignorer les jours fériés et les week-ends
+            }
+
             let dateDiv = rowDiv.querySelector('div[col-id="dateTime"] .spanned-cell');
             if (dateDiv) {
                 let dateText = dateDiv.textContent.trim();
