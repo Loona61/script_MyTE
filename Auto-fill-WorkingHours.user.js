@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Auto-fill Working Hours
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Auto-fill Working Hours on Accenture
 // @author       Les sorciers du script
 // @match        *://myte.accenture.com/*
