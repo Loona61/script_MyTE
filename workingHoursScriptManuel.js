@@ -71,7 +71,7 @@ function fillFieldsByWorkSchedule(workSchedule, hoursSelect, minutesSelect, meri
             selectOptionByValue(breakSelect, '1');
             break;
         case '8.5':
-            selectOptionByValue(hoursSelect, '7');
+            selectOptionByValue(hoursSelect, '6');
             selectOptionByValue(minutesSelect, '30');
             selectOptionByValue(meridianSelect, 'pm');
             selectOptionByValue(breakSelect, '1');
@@ -79,7 +79,7 @@ function fillFieldsByWorkSchedule(workSchedule, hoursSelect, minutesSelect, meri
         case '3.0':
             selectOptionByValue(hoursSelect, '12');
             selectOptionByValue(minutesSelect, '0');
-            selectOptionByValue(meridianSelect, 'am');
+            selectOptionByValue(meridianSelect, 'pm');
             selectOptionByValue(breakSelect, '0');
             break;
         default:
